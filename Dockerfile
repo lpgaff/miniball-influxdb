@@ -18,12 +18,13 @@ RUN yum install -y emacs-nox && yum clean all -y
 COPY influxdb.repo /etc/yum.repos.d/influxdb.repo
 RUN yum install -y influxdb && yum clean all -y
 
-# TODO (optional): Copy the config files into /etc/
+# TODO (optional): Copy the config and run files
 COPY influxdb.conf /etc/influxdb/
+COPY entrypoint.sh /entrypoint.sh
 
-# TODO: Drop the root user and make the content of /opt/app-root owned by user 1001
-RUN chown -R 1001:1001 /var/lib/influxdb
+# TODO: Drop the root user and make the content owned by user 1001
 RUN chown -R 1001:1001 /etc/influxdb
+RUN chown -R 1001:1001 /entrypoint.sh
 
 # This default user is created in the openshift/base-centos7 image
 USER 1001
@@ -33,6 +34,5 @@ EXPOSE 8083
 EXPOSE 8086
 
 # TODO: Set the default ENTRYPOINT and CMD for the image
-COPY entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["influxd"]
