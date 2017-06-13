@@ -33,5 +33,5 @@ EXPOSE 8083
 EXPOSE 8086
 
 # TODO: Set the default ENTRYPOINT and CMD for the image
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/etc/influxdb/entrypoint.sh"]
 CMD ["influxd"]
