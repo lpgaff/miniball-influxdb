@@ -15,8 +15,6 @@ LABEL io.k8s.description="Implementation of InfluxDB for Miniball status webpage
 
 # TODO: Install required packages here:
 RUN yum install -y emacs-nox && yum clean all -y
-RUN yum install -y openssl-devel && yum clean all -y
-RUN yum install -y elog && yum clean all -y
 RUN cat <<EOF | tee /etc/yum.repos.d/influxdb.repo \
   [influxdb] \
   name = InfluxDB Repository - RHEL \$releasever \
