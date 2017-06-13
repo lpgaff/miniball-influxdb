@@ -21,6 +21,7 @@ RUN yum install -y influxdb && yum clean all -y
 # TODO (optional): Copy the config and run files
 COPY influxdb.conf /etc/influxdb/
 COPY entrypoint.sh /etc/influxdb/entrypoint.sh
+RUN chmod a+x /etc/influxdb/entrypoint.sh
 
 # TODO: Drop the root user and make the content owned by user 1001
 RUN chown -R 1001:1001 /etc/influxdb
