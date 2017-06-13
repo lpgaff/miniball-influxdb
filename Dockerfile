@@ -15,18 +15,11 @@ LABEL io.k8s.description="Implementation of InfluxDB for Miniball status webpage
 
 # TODO: Install required packages here:
 RUN yum install -y emacs-nox && yum clean all -y
-RUN cat <<EOF | tee /etc/yum.repos.d/influxdb.repo \
-  [influxdb] \
-  name = InfluxDB Repository - RHEL \$releasever \
-  baseurl = https://repos.influxdata.com/centos/\$releasever/\$basearch/stable \
-  enabled = 1 \
-  gpgcheck = 1 \
-  gpgkey = https://repos.influxdata.com/influxdb.key \
-  EOF
+COPY influxdb.repo /etc/yum.repos.d/influxdb.repo
 RUN yum install -y influxdb && yum clean all -y
 
 # TODO (optional): Copy the config files into /etc/
-COPY ./influxdb.conf /etc/influxdb/
+COPY influxdb.conf /etc/influxdb/
 
 # TODO: Drop the root user and make the content of /opt/app-root owned by user 1001
 RUN chown -R 1001:1001 /var/lib/influxdb
